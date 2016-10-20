@@ -8,10 +8,10 @@ html
 
     script(src="/js/jquery.js")
     script(src="/js/semantic.min.js")
-    
+
     style.
       .main.container {
-        margin-top: 2em;
+        padding-top: 2em;
       }
       
       cite.right.floated {
@@ -20,6 +20,10 @@ html
       }
 
   body
+    //- We can use Maki's built-in UI framework, Semantic UI, to cleanly style
+    //- some basic content.  Documentation: https://semantic-ui.com
+    //-
+    //- Note that we're using CSS-like syntax to build the interface in HTML.
     .ui.main.text.container
       .ui.huge.segment
         blockquote “If you want to build a ship, don’t drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea.”
@@ -39,6 +43,15 @@ html
 
     script(src="/assets/chart.bundle.min.js")
     script.
+      // You can find the server for this endpoint here:
+      //
+      //    https://github.com/martindale/soundtracker
+      //
+      // We wrote it to learn more about what time of day people were listening
+      // to soundtrack, so that we could all commit to being online around the
+      // same times.  Eventually, we hope for this service to be provided by a
+      // generalized statistics server, such as #sensemaker might provide.
+      
       /*/var ENDPOINT = 'http://localhost:13010/snapshots';/*/
       var ENDPOINT = 'https://stats.soundtrack.io/snapshots';/**/
       var chart = {};
