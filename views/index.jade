@@ -30,42 +30,62 @@ html
         h2.ui.header Welcome home, friend.
         p Here are some of the things you've told me are important to you.
 
-      .ui.very.padded.segment
-        h3.ui.header Active Users
-        canvas.online.users(src="/people", filter="{ status: 'active' }")
+      .ui.fluid.card
+        .content
+          i.right.floated.refresh.icon(on-tap="refreshChart")
+          h3.header Active Users
+          .description
+            canvas.online.users(src="/people", filter="{ status: 'active' }")
 
     script(src="/assets/chart.bundle.min.js")
     script.
       /*/var ENDPOINT = 'http://localhost:13010/snapshots';/*/
       var ENDPOINT = 'https://stats.soundtrack.io/snapshots';/**/
-    
-      $.getJSON(ENDPOINT, function(snapshots) {
-        console.log('snapshots:', snapshots);
-        
-        var items = snapshots.map(function(x) {
-          return x.metrics.listeners;
-        });
-        
-        var labels = [];
-        
-        for (var i = 0; i < items.length; i++) {
-          var label = (i + 1) + ' minutes ago';
-          labels.push(label);
-        }
-
-        var data = {
-          labels: labels.reverse(),
-          datasets: [
-            {
-              label: 'soundtrack.io',
-              data: items,
-            }
-          ]
-        };
+      var chart = {};
       
-        var context = document.querySelector('canvas.online.users');
-        var chart = new Chart(context, {
-          type: 'line',
-          data: data
+      drawChart();
+      
+      $(document).on('click', '[on-tap=refreshChart]', refreshChart);
+      
+      setInterval(refreshChart, 60 * 1000);
+      
+      function refreshChart() {
+        $(this).addClass('loading');
+        drawChart();
+      }
+      
+      function drawChart() {
+        $.getJSON(ENDPOINT, function(snapshots) {
+          console.log('snapshots:', snapshots);
+          
+          var items = snapshots.map(function(x) {
+            return x.metrics.listeners;
+          });
+          
+          var labels = [];
+          
+          for (var i = 0; i < items.length; i++) {
+            var label = (i + 1) + ' minutes ago';
+            labels.push(label);
+          }
+
+          var data = {
+            labels: labels.reverse(),
+            datasets: [
+              {
+                label: 'soundtrack.io',
+                data: items,
+              }
+            ]
+          };
+          
+          var context = document.querySelector('canvas.online.users');
+          chart = new Chart(context, {
+            type: 'line',
+            data: data
+          });
+          
+          $('[on-tap=refreshChart]').removeClass('loading');
+          
         });
-      });
+      }
