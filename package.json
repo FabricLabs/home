@@ -1,0 +1,31 @@
+{
+  "name": "home",
+  "version": "0.1.0",
+  "description": "simple digital home",
+  "main": "home.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martindale/home.git"
+  },
+  "keywords": [
+    "maki",
+    "home",
+    "fabric",
+    "namespace",
+    "simple",
+    "homepage",
+    "productivity"
+  ],
+  "author": "Eric Martindale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martindale/home/issues"
+  },
+  "homepage": "https://github.com/martindale/home",
+  "dependencies": {
+    "maki": "git://github.com/martindale/maki#community"
+  }
+}
