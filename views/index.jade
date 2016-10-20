@@ -20,4 +20,52 @@ html
       }
 
   body
-    h1 Hello again, world!
+    .ui.main.text.container
+      .ui.huge.segment
+        blockquote “If you want to build a ship, don’t drum up the men to gather wood, divide the work, and give orders. Instead, teach them to yearn for the vast and endless sea.”
+          br
+          cite.right.floated — Antoine de Saint-Exupéry
+
+      .ui.very.padded.segment
+        h2.ui.header Welcome home, friend.
+        p Here are some of the things you've told me are important to you.
+
+      .ui.very.padded.segment
+        h3.ui.header Active Users
+        canvas.online.users(src="/people", filter="{ status: 'active' }")
+
+    script(src="/assets/chart.bundle.min.js")
+    script.
+      /*/var ENDPOINT = 'http://localhost:13010/snapshots';/*/
+      var ENDPOINT = 'https://stats.soundtrack.io/snapshots';/**/
+    
+      $.getJSON(ENDPOINT, function(snapshots) {
+        console.log('snapshots:', snapshots);
+        
+        var items = snapshots.map(function(x) {
+          return x.metrics.listeners;
+        });
+        
+        var labels = [];
+        
+        for (var i = 0; i < items.length; i++) {
+          var label = (i + 1) + ' minutes ago';
+          labels.push(label);
+        }
+
+        var data = {
+          labels: labels.reverse(),
+          datasets: [
+            {
+              label: 'soundtrack.io',
+              data: items,
+            }
+          ]
+        };
+      
+        var context = document.querySelector('canvas.online.users');
+        var chart = new Chart(context, {
+          type: 'line',
+          data: data
+        });
+      });
