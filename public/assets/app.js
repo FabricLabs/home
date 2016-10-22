@@ -1,5 +1,6 @@
 var resources = {
-  activeUsers: 'http://localhost:9200/people?filter={"status":"active"}',
+  /*/activeUsers: 'http://localhost:9200/people?filter={"status":"active"}',/*/
+  activeUsers: 'https://maki.io/people?filter={"status":"active"}',/**/
   // You can find the server for this endpoint here:
   //
   //    https://github.com/martindale/soundtracker
@@ -8,7 +9,8 @@ var resources = {
   // to soundtrack, so that we could all commit to being online around the
   // same times.  Eventually, we hope for this service to be provided by a
   // generalized statistics server, such as #sensemaker might provide.
-  soundtrack: 'https://stats.soundtrack.io/snapshots'
+  /*/soundtrack: 'http://localhost:13010/snapshots'/*/
+  soundtrack: 'https://stats.soundtrack.io/snapshots'/**/
 }
 
 $.getJSON(resources.activeUsers, function(activeUsers, status, res) {
@@ -16,8 +18,6 @@ $.getJSON(resources.activeUsers, function(activeUsers, status, res) {
   $('[src="/people#online"] .value').html(activeUsers.length);
 });
 
-/*/var resources.soundtrack = 'http://localhost:13010/snapshots';/*/
-resources.soundtrack = 'https://stats.soundtrack.io/snapshots';/**/
 var chart = {};
 
 drawChart();
