@@ -43,6 +43,8 @@ function drawChart() {
       return x.metrics.listeners;
     });
     
+    $('[src="/people#soundtrack"] .value').html(items[ items.length - 1 ]);
+    
     var labels = [];
     
     for (var i = 0; i < items.length; i++) {

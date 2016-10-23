@@ -34,22 +34,25 @@ html
         h2.ui.header Welcome home, friend.
         p Here are some of the things you've told me are important to you.
 
-      .ui.five.cards
-        .ui.centered.card
-          .content
-            .description
-              .ui.statistic(src="/people#online")
-                .value {{count}}
-                .label
-                  i.slack.alt.icon
-                  | online
-
       .ui.fluid.card
         .content
           i.right.floated.refresh.icon(on-tap="refreshChart")
           h3.header Active Users
           .description
             canvas.online.users(src="/people", filter="{ status: 'active' }")
+        .extra.content
+          .description
+            .ui.two.small.statistics
+              .ui.statistic(src="/people#online")
+                .value {{count}}
+                .label
+                  i.slack.alt.icon
+                  | Active on Slack
+              .ui.statistic(src="/people#soundtrack")
+                .value {{count}}
+                .label
+                  i.music.alt.icon
+                  | Listening on soundtrack
 
     script(src="/assets/chart.bundle.min.js")
     script(src="/assets/app.js")
